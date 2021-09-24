@@ -1,0 +1,348 @@
+define 
+
+        event_date sub attribute, abstract, value datetime;
+        start_date sub event_date;
+        end_date sub event_date;
+
+        ephemeral_relation sub relation, abstract, 
+            owns start_date,
+            owns end_date;
+
+        permanent_relation sub relation, abstract;
+
+        broader_relation sub permanent_relation,
+            relates parent,
+            relates child;
+
+        score sub attribute, value double;
+
+        semantic_similarity sub permanent_relation,
+            owns score,
+            relates concept;
+
+        preferred_label sub attribute, value string;
+        label sub attribute, value string;
+        uri sub attribute, value string;
+        description sub attribute, value string;
+        tag sub attribute, value string; 
+
+        tagging sub relation,
+            owns tag,
+            relates tagged;
+
+        resource sub entity,
+            owns preferred_label,
+            owns label,
+            owns uri,
+            owns description,
+            plays broader_relation:parent,
+            plays broader_relation:child,
+            plays tagging:tagged;
+
+        state sub attribute, value string;
+        country sub attribute, value string;
+        postal_address sub attribute, 
+            value string,
+            owns state,
+            owns country;
+
+        handle sub attribute, value string; 
+
+        location sub entity,
+            plays located_at:location;
+
+        physical_location sub location,
+            owns postal_address;
+
+        virtual_location sub location,
+            owns handle;
+
+        email sub virtual_location;
+        social_media sub virtual_location;
+        facebook sub social_media;
+        instagram sub social_media;
+        twitter sub social_media;
+        linkedin sub social_media;
+
+
+        located_at sub ephemeral_relation,
+            relates object,
+            relates location;
+
+        locatable_resource sub resource,
+            plays located_at:object;
+
+
+        measurement sub ephemeral_relation,
+            relates subject,
+            relates trait,
+            relates instrument,
+            owns score;
+
+        mapping sub permanent_relation,
+            relates from,
+            relates to;
+
+        trait sub resource,
+            owns score,
+            owns profile_id,
+            plays measurement:trait,
+            plays mapping:from,
+            plays mapping:to;
+
+        big_five sub trait;
+
+        big_five-openness_to_experience sub big_five;
+        openness_to_experience-imagination sub big_five-openness_to_experience;
+        openness_to_experience-artistic_interests sub big_five-openness_to_experience;
+        openness_to_experience-emotionality sub big_five-openness_to_experience;
+        openness_to_experience-adventurousness sub big_five-openness_to_experience;
+        openness_to_experience-intellect sub big_five-openness_to_experience;
+        openness_to_experience-liberalism sub big_five-openness_to_experience;
+
+        big_five-conscientiousness sub big_five;
+        conscientiousness-self_efficacy sub big_five-conscientiousness;
+        conscientiousness-orderliness sub big_five-conscientiousness;
+        conscientiousness-dutifulness sub big_five-conscientiousness;
+        conscientiousness-achievement_striving sub big_five-conscientiousness;
+        conscientiousness-self_discipline sub big_five-conscientiousness;
+        conscientiousness-cautiousness sub big_five-conscientiousness;
+
+        big_five-extraversion sub big_five;
+        extraversion-activity_level sub big_five-extraversion;
+        extraversion-assertiveness sub big_five-extraversion;
+        extraversion-cheerfulness sub big_five-extraversion;
+        extraversion-excitement_seeking sub big_five-extraversion;
+        extraversion-friendliness sub big_five-extraversion;
+        extraversion-gregariousness sub big_five-extraversion;
+
+        big_five-agreeableness sub big_five;
+        agreeableness-altruism sub big_five-agreeableness;
+        agreeableness-cooperation sub big_five-agreeableness;
+        agreeableness-modesty sub big_five-agreeableness;
+        agreeableness-morality sub big_five-agreeableness;
+        agreeableness-sympathy sub big_five-agreeableness;
+        agreeableness-trust sub big_five-agreeableness;
+
+        big_five-emotional_stability sub big_five;
+        emotional_stability-anger sub big_five-emotional_stability;
+        emotional_stability-anxiety sub big_five-emotional_stability;
+        emotional_stability-depression sub big_five-emotional_stability;
+        emotional_stability-immoderation sub big_five-emotional_stability;
+        emotional_stability-self_consciousness sub big_five-emotional_stability;
+        emotional_stability-vulnerability sub big_five-emotional_stability;
+
+        extra_four sub trait;
+        extra_four-performance_orientation	sub extra_four;
+        extra_four-core_self_evaluations sub extra_four;	
+        extra_four-mastery_orientation sub extra_four;	
+        extra_four-self_monitoring sub extra_four;
+
+
+        work_culture sub trait;
+
+        work_culture-adaptability sub work_culture;
+        work_culture-collaboration sub work_culture;
+        work_culture-customer_orientation sub work_culture;
+        work_culture-decisiveness sub work_culture;
+        work_culture-detail_orientation sub work_culture;
+        work_culture-emphasis_on_rewards sub work_culture;
+        work_culture-integrity sub work_culture;
+        work_culture-outcome_orientation sub work_culture;
+
+
+        work_style sub trait;
+        work_style-achievement_effort sub work_style;
+        work_style-persistence sub work_style;
+        work_style-initiative sub work_style;
+        work_style-leadership sub work_style;
+        work_style-cooperation sub work_style;
+        work_style-concern_for_others sub work_style;
+        work_style-social_orientation sub work_style;
+        work_style-self_control sub work_style;
+        work_style-stress_tolerance sub work_style;
+        work_style-adaptability_flexibility sub work_style;
+        work_style-dependability sub work_style;
+        work_style-attention_to_detail sub work_style;
+        work_style-integrity sub work_style;
+        work_style-independence sub work_style;
+        work_style-innovation sub work_style;
+        work_style-analytical_thinking sub work_style;
+
+        work_value sub trait; 
+        work_value-achievement sub work_value;
+        work_value-independence sub work_value;
+        work_value-recognition sub work_value;
+        work_value-relationships sub work_value;
+        work_value-support sub work_value;
+        work_value-working_conditions sub work_value;
+
+        work_interest sub trait;
+        work_interest-realistic sub work_interest;
+        work_interest-investigative sub work_interest;
+        work_interest-artistic sub work_interest;
+        work_interest-social sub work_interest;
+        work_interest-enterprising sub work_interest;
+        work_interest-conventional sub work_interest;
+
+        cognitive sub trait;
+        cognitive-verbal sub cognitive;
+        cognitive-numeric sub cognitive;
+        cognitive-logical sub cognitive;
+
+
+        first_name sub attribute, value string;
+        last_name sub attribute, value string;
+        birth_date sub event_date;
+        gender sub attribute, value string;
+        nationality sub attribute, value string;
+        race sub attribute, value string;
+        age sub attribute, value long;
+        
+        people sub locatable_resource,
+            owns first_name,
+            owns last_name,
+            owns birth_date,
+            owns gender,
+            owns nationality,
+            owns race,
+            owns age,
+            plays state_change:actor,
+            plays measurement:subject,
+            plays application:employee,
+            plays application:candidate,
+            plays employment:employee,
+            plays education:student;
+
+        profile_id sub attribute, value string;
+
+        users sub people,
+            owns profile_id,
+            plays authorship:author,
+            plays sharing:sharer,
+            plays sharing:object;
+
+        occupation sub resource,
+            plays semantic_similarity:concept,
+            plays requirement:requestor, 
+            plays occupation_job_mapping:to;
+
+        onet_occupation sub occupation;
+        esco_occupation sub occupation;
+
+        competency sub resource,
+            plays semantic_similarity:concept,
+            plays requirement:requestor,
+            plays requirement:required;
+
+        requirement sub permanent_relation,
+            owns score,
+            relates requestor,
+            relates required;
+            
+        essential_requirement sub requirement;
+        optional_requirement sub requirement;
+
+        organization sub locatable_resource,
+            plays ranking:awarding_body,
+            plays ranking:receiving_body;
+
+        employment sub ephemeral_relation,
+            relates employer, 
+            relates employee, 
+            relates job_role;
+
+        parent_company sub permanent_relation,
+            relates parent,
+            relates child;
+
+        occupation_job_mapping sub mapping;
+
+        employee sub users;
+
+        candidate sub users;
+
+        company sub organization,
+            plays employment:employer,
+            plays parent_company:parent,
+            plays parent_company:child;
+
+        job_role sub resource,
+            plays application:job_role,
+            plays employment:job_role,
+            plays occupation_job_mapping:from;
+
+
+        ranking sub ephemeral_relation,
+            owns score,
+            relates awarding_body,
+            relates receiving_body;
+
+        education sub ephemeral_relation, 
+            relates student, 
+            relates degree, 
+            relates school;
+
+        school-degree-offering sub relation,
+            relates school, 
+            relates degree;
+
+        school sub organization,
+            plays school-degree-offering:school;
+
+        degree sub resource, 
+            plays school-degree-offering:degree,
+            plays education:degree;
+
+        id sub attribute, value string;
+
+        state_change sub ephemeral_relation,
+            relates actor,
+            relates initial_state,
+            relates final_state;
+
+        has_status sub ephemeral_relation,
+            relates object,
+            relates status;
+
+        status sub entity,
+            plays state_change:initial_state,
+            plays state_change:final_state,
+            plays has_status:status;
+
+        application_status sub status;
+        hired sub application_status; 
+        interview sub application_status;
+        applied sub application_status;
+        rejected sub application_status;
+        assessing sub application_status;
+
+        application sub ephemeral_relation,
+            # owns id @key, 
+            relates candidate,
+            relates employee,
+            relates job_role,
+            plays has_status:object;
+
+        comment sub attribute, value string;
+
+        reply sub relation,
+            relates to,  
+            relates by;
+
+        authorship sub relation,
+            relates post,
+            relates author;
+
+        post sub entity,
+            owns comment,
+            plays authorship:post,
+            plays reply:to,
+            plays reply:by;
+
+        sharing sub relation, 
+            relates sharer, 
+            relates object;
+
+        manager sub employee,
+            plays reply:by;
